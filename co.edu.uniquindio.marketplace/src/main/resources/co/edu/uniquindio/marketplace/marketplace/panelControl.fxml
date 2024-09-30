@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="648.0" prefWidth="927.0" style="-fx-background-color: #FDF7E3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.marketplace.marketplace.viewcontroller.PanelControlViewController">
+    <children>
+        <TabPane layoutX="7.0" layoutY="13.0" prefHeight="623.0" prefWidth="919.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Administrador">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="592.0" prefWidth="964.0">
+                            <TabPane layoutY="-3.0" prefHeight="603.0" prefWidth="971.0" tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                    <Tab text="Estadística">
+                                        <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                        </content>
+                                    </Tab>
+                                    <Tab text="Agregar Vendedor">
+                              <content>
+                                 <Pane prefHeight="613.0" prefWidth="960.0">
+                                    <children>
+                                       <Pane layoutX="14.0" layoutY="14.0" prefHeight="594.0" prefWidth="956.0" />
+                                    </children>
+                                 </Pane>
+                                  <fx:include source="agregarVendedor.fxml" />
+                              </content>
+                                    </Tab>
+                                </tabs>
+                            </TabPane>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Vendedor">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="960.0" />
+                    </content>
+                </Tab>
+                <Tab text="Vendedor 2">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="960.0" />
+                    </content>
+                </Tab>
+                <Tab text="Vendedor 3">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="960.0" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
