@@ -30,18 +30,16 @@ public class LoginViewController {
     @FXML
     public void initialize() {
         vendedorController = new VendedorController();
-        btnLogin.setOnAction(event -> handleLogin());
+        btnLogin.setOnAction(event -> iniciarSesion());
     }
 
-    private void handleLogin() {
+    private void iniciarSesion() {
         String nombreUsuario = txtUsuarioLogin.getText();
         String password = pwfLogin.getText();
-        if (validarAdmin(nombreUsuario, password)) {
-            mostrarAlerta(AlertType.INFORMATION, "Inicio de Sesión Exitoso", "¡Bienvenido, " + nombreUsuario + "!");
+        if(validarAdmin(nombreUsuario, password)){
             cargarNuevaVista("/co/edu/uniquindio/marketplace/marketplace/panelControl.fxml");
         }
-        else if (vendedorController.validarVendedor(nombreUsuario, password)) {
-            mostrarAlerta(AlertType.INFORMATION, "Inicio de Sesión Exitoso", "¡Bienvenido, " + nombreUsuario + "!");
+        else if(vendedorController.validarVendedor(nombreUsuario, password)) {
             cargarNuevaVista("/co/edu/uniquindio/marketplace/marketplace/panelControl.fxml");
         }
         else {

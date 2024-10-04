@@ -55,5 +55,4 @@ public class ModelFactory implements IModelFactoryServices {
     public boolean validarVendedor(String nombreUsuario, String contrasena) {
         return marketplace.validarVendedor(nombreUsuario, contrasena);
     }
-
 }

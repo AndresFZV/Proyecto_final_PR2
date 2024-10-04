@@ -20,20 +20,12 @@ public class VendedorController {
     }
 
     // Método para crear un vendedor
-    public boolean crearVendedor(String nombre, String apellido, String cedula, String direccion,
-                                 String telefono, String correo, Usuario usuario) {
-        VendedorDto vendedorDto = new VendedorDto(
-                nombre, apellido, cedula, direccion, telefono, correo, usuario
-        );
+    public boolean crearVendedor(VendedorDto vendedorDto) {
         return modelFactory.crearVendedor(vendedorDto);
     }
 
     // Método para actualizar un vendedor
-    public boolean actualizarVendedor(String nombre, String apellido, String cedula, String direccion,
-                                      String telefono, String correo, Usuario usuario) {
-        VendedorDto vendedorDto = new VendedorDto(
-                nombre, apellido, cedula, direccion, telefono, correo, usuario
-        );
+    public boolean actualizarVendedor(VendedorDto vendedorDto) {
         return modelFactory.actualizarVendedor(vendedorDto);
     }
 
@@ -46,5 +38,4 @@ public class VendedorController {
     public boolean validarVendedor(String nombreUsuario, String contrasena){
         return modelFactory.validarVendedor(nombreUsuario, contrasena);
     }
-
 }
