@@ -20,20 +20,16 @@ public class AgregarVendedorViewController {
     private ObservableList<VendedorDto> listaVendedor = FXCollections.observableArrayList();
     private VendedorDto vendedorSeleccionado;
     private PrincipalViewController principalViewController;
-
     @FXML
     private ResourceBundle resources;
     @FXML
     private URL location;
-
     @FXML
     private Button btnActualizar, btnAgregar, btnEliminar, btnNuevo, btnSalir;
-
     @FXML
     private PasswordField pwfContrasena;
     @FXML
     private TextField txtApellido, txtCedula, txtCorreo, txtNombre, txtTelefono, txtUsuario, txtdireccion;
-
     @FXML
     private TableView<VendedorDto> tablaVendedor;
     @FXML
@@ -59,12 +55,6 @@ public class AgregarVendedorViewController {
         listenerSelection();
     }
 
-    private void obtenerVendedores() {
-        listaVendedor.clear();
-        listaVendedor.addAll(vendedorController.obtenerVendedor());
-        tablaVendedor.setItems(listaVendedor);
-    }
-
     private void initDataBinding() {
         tcNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().nombre()));
         tcApellido.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().apellido()));
@@ -76,13 +66,11 @@ public class AgregarVendedorViewController {
         tcContrasena.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().usuario().getPassword()));
     }
 
-    private void listenerSelection() {
-        tablaVendedor.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            vendedorSeleccionado = newSelection;
-            mostrarInformacionVendedor(vendedorSeleccionado);
-        });
+    private void obtenerVendedores() {
+        listaVendedor.clear();
+        listaVendedor.addAll(vendedorController.obtenerVendedor());
+        tablaVendedor.setItems(listaVendedor);
     }
-
 
     private void mostrarInformacionVendedor(VendedorDto vendedorSeleccionado) {
         if (vendedorSeleccionado != null) {
@@ -95,51 +83,6 @@ public class AgregarVendedorViewController {
             txtUsuario.setText(vendedorSeleccionado.usuario().getNombreUsuario());
             pwfContrasena.setText(vendedorSeleccionado.usuario().getPassword());
         }
-    }
-
-    private void agregarVendedor() {
-        VendedorDto vendedorDto = crearVendedorDto();
-        if (validarDatos(vendedorDto)) {
-            if (vendedorController.crearVendedor(vendedorDto)) {
-                listaVendedor.add(vendedorDto);
-                principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Vendedor agregado");
-                limpiarFormulario();
-            } else {
-                principalViewController.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Vendedor no agregado");
-            }
-        }
-    }
-
-    private boolean validarDatos(VendedorDto vendedorDto) {
-        if (vendedorDto.nombre().isEmpty() || vendedorDto.apellido().isEmpty()
-                || vendedorDto.cedula().isEmpty() || vendedorDto.direccion().isEmpty()
-                || vendedorDto.correo().isEmpty() || vendedorDto.telefono().isEmpty()
-                || vendedorDto.usuario().getNombreUsuario().isEmpty() || vendedorDto.usuario().getPassword().isEmpty()) {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Complete todos los campos.");
-            return false;
-        }
-        if (vendedorDto.usuario().getPassword().length() < 6) {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "La contraseña debe tener al menos 6 caracteres.");
-            return false;
-        }
-        String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-        if (!vendedorDto.correo().matches(emailRegex)) {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El correo electrónico no es válido.");
-            return false;
-        }
-        if (!vendedorDto.cedula().matches("\\d+")) {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "La cédula solo debe tener números.");
-            return false;
-        }
-        if (!vendedorDto.telefono().matches("\\d+")) {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El teléfono solo debe tener números.");
-            return false;
-        }
-        if (vendedorDto.telefono().length() < 10) {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El teléfono debe tener al menos 10 dígitos.");
-            return false;
-        }
-        return true;
     }
 
     private VendedorDto crearVendedorDto() {
@@ -162,8 +105,20 @@ public class AgregarVendedorViewController {
         );
     }
 
-    public void onAgregarVendedor(ActionEvent actionEvent) {
-        agregarVendedor();
+    private void agregarVendedor() {
+        VendedorDto vendedorDto = crearVendedorDto();
+        if (validarDatos(vendedorDto)) {
+            if (vendedorController.crearVendedor(vendedorDto)) {
+                listaVendedor.add(vendedorDto);
+                principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION,
+                        "Éxito", "Vendedor agregado");
+                tablaVendedor.getSelectionModel().clearSelection();
+                limpiarFormulario();
+            } else {
+                principalViewController.mostrarAlerta(Alert.AlertType.ERROR,
+                        "Error", "Vendedor no agregado");
+            }
+        }
     }
 
     private void actualizarVendedor() {
@@ -172,48 +127,74 @@ public class AgregarVendedorViewController {
             if (validarDatos(vendedorDto)) {
                 if (vendedorController.actualizarVendedor(vendedorDto)) {
                     listaVendedor.set(listaVendedor.indexOf(vendedorSeleccionado), vendedorDto);
+                    tablaVendedor.getSelectionModel().clearSelection();
                     limpiarFormulario();
-                    principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION, "Vendedor actualizado", "Vendedor actualizado exitosamente");
+                    principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION,
+                            "Vendedor actualizado", "Vendedor actualizado exitosamente");
                 } else {
-                    principalViewController.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Vendedor no actualizado");
+                    principalViewController.mostrarAlerta(Alert.AlertType.ERROR,
+                            "Error", "Vendedor no actualizado");
                 }
             }
         } else {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione un vendedor para actualizar.");
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING,
+                    "Advertencia", "Seleccione un vendedor para actualizar.");
         }
-    }
-
-    public void onActualizarVendedor(ActionEvent actionEvent) {
-        actualizarVendedor();
     }
 
     private void eliminarVendedor() {
         if (vendedorSeleccionado != null) {
-            if (principalViewController.mostrarAlertaConfirmacion("Confirmación de Eliminación", "¿Estás seguro de que deseas eliminar al vendedor?")) {
+            if (principalViewController.mostrarAlertaConfirmacion(
+                    "Confirmación de Eliminación", "¿Estás seguro de que deseas eliminar al vendedor?")) {
                 if (vendedorController.eliminarVendedor(vendedorSeleccionado.cedula())) {
                     listaVendedor.remove(vendedorSeleccionado);
                     tablaVendedor.refresh();
                     vendedorSeleccionado = null;
                     tablaVendedor.getSelectionModel().clearSelection();
                     limpiarFormulario();
-                    principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Vendedor eliminado con éxito.");
+                    principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION,
+                            "Éxito", "Vendedor eliminado con éxito.");
                 } else {
-                    principalViewController.mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo eliminar el vendedor.");
+                    principalViewController.mostrarAlerta(Alert.AlertType.ERROR,
+                            "Error", "No se pudo eliminar el vendedor.");
                 }
             }
         } else {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione un vendedor para eliminar.");
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING,
+                    "Advertencia", "Seleccione un vendedor para eliminar.");
         }
-    }
-
-    public void onEliminarVendedor(ActionEvent actionEvent) {
-        eliminarVendedor();
     }
 
     public void onNuevoVendedor() {
         limpiarFormulario();
         vendedorSeleccionado = null;
         tablaVendedor.getSelectionModel().clearSelection();
+    }
+
+    public void onAgregarVendedor(ActionEvent actionEvent) {
+        agregarVendedor();
+    }
+
+    public void onActualizarVendedor(ActionEvent actionEvent) {
+        actualizarVendedor();
+    }
+
+    public void onEliminarVendedor(ActionEvent actionEvent) {
+        eliminarVendedor();
+    }
+
+    @FXML
+     public void onSalir(ActionEvent event) {
+        principalViewController.navegarDatos("/co/edu/uniquindio/marketplace/marketplace/login.fxml");
+        Stage stage = (Stage) btnSalir.getScene().getWindow();
+        stage.close();
+    }
+
+    private void listenerSelection() {
+        tablaVendedor.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            vendedorSeleccionado = newSelection;
+            mostrarInformacionVendedor(vendedorSeleccionado);
+        });
     }
 
     private void limpiarFormulario() {
@@ -227,10 +208,41 @@ public class AgregarVendedorViewController {
         pwfContrasena.clear();
     }
 
-    @FXML
-    void onSalir(ActionEvent event) {
-        principalViewController.navegarDatos("/co/edu/uniquindio/marketplace/marketplace/login.fxml");
-        Stage stage = (Stage) btnSalir.getScene().getWindow();
-        stage.close();
+    private boolean validarDatos(VendedorDto vendedorDto) {
+        if (vendedorDto.nombre().isEmpty() || vendedorDto.apellido().isEmpty()
+                || vendedorDto.cedula().isEmpty() || vendedorDto.direccion().isEmpty()
+                || vendedorDto.correo().isEmpty() || vendedorDto.telefono().isEmpty()
+                || vendedorDto.usuario().getNombreUsuario().isEmpty() || vendedorDto.usuario().getPassword().isEmpty()) {
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING,
+                    "Advertencia", "Complete todos los campos.");
+            return false;
+        }
+        if (vendedorDto.usuario().getPassword().length() < 6) {
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING,
+                    "Advertencia", "La contraseña debe tener al menos 6 caracteres.");
+            return false;
+        }
+        String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        if (!vendedorDto.correo().matches(emailRegex)) {
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING,
+                    "Advertencia", "El correo electrónico no es válido.");
+            return false;
+        }
+        if (!vendedorDto.cedula().matches("\\d+")) {
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING,
+                    "Advertencia", "La cédula solo debe tener números.");
+            return false;
+        }
+        if (!vendedorDto.telefono().matches("\\d+")) {
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING,
+                    "Advertencia", "El teléfono solo debe tener números.");
+            return false;
+        }
+        if (vendedorDto.telefono().length() < 10) {
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING,
+                    "Advertencia", "El teléfono debe tener al menos 10 dígitos.");
+            return false;
+        }
+        return true;
     }
 }
