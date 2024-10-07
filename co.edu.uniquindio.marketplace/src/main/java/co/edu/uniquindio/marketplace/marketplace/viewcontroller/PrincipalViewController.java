@@ -12,18 +12,6 @@ import java.util.Optional;
 
 public class PrincipalViewController {
 
-    public Optional<ButtonType> mostrarConfirmacion(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        ButtonType botonSi = new ButtonType("Sí");
-        ButtonType botonNo = new ButtonType("No");
-        alert.getButtonTypes().setAll(botonSi, botonNo);
-        return alert.showAndWait();
-    }
-
-    // Método para mostrar alertas (ya existente)
     public void mostrarAlerta(Alert.AlertType tipo, String title, String content) {
         Alert alert = new Alert(tipo);
         alert.setTitle(title);
@@ -31,24 +19,19 @@ public class PrincipalViewController {
         alert.setContentText(content);
         alert.showAndWait();
     }
-        // Método para mostrar alerta de confirmación
-        public boolean mostrarAlertaConfirmacion(String titulo, String mensaje) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle(titulo);
-            alert.setHeaderText(null);
-            alert.setContentText(mensaje);
 
-            // Botones de confirmación
-            ButtonType botonSi = new ButtonType("Sí");
-            ButtonType botonNo = new ButtonType("No");
-            alert.getButtonTypes().setAll(botonSi, botonNo);
-
-            // Mostrar alerta y devolver el resultado
-            Optional<ButtonType> resultado = alert.showAndWait();
-            return resultado.isPresent() && resultado.get() == botonSi;
+    public boolean mostrarAlertaConfirmacion(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        ButtonType botonSi = new ButtonType("Sí");
+        ButtonType botonNo = new ButtonType("No");
+        alert.getButtonTypes().setAll(botonSi, botonNo);
+        Optional<ButtonType> resultado = alert.showAndWait();
+        return resultado.isPresent() && resultado.get() == botonSi;
         }
 
-        // Método para cargar una nueva vista
         public void navegarDatos(String nombreArchivoFxml) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(nombreArchivoFxml));

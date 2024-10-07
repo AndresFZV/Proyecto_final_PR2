@@ -8,15 +8,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AgregarVendedorViewController {
@@ -24,6 +19,7 @@ public class AgregarVendedorViewController {
     private VendedorController vendedorController;
     private ObservableList<VendedorDto> listaVendedor = FXCollections.observableArrayList();
     private VendedorDto vendedorSeleccionado;
+    private PrincipalViewController principalViewController;
 
     @FXML
     private ResourceBundle resources;
@@ -31,60 +27,28 @@ public class AgregarVendedorViewController {
     private URL location;
 
     @FXML
-    private Button btnActualizar;
-    @FXML
-    private Button btnAgregar; // Asegúrate de que este botón esté conectado en tu FXML
-    @FXML
-    private Button btnEliminar;
-    @FXML
-    private Button btnNuevo;
-    @FXML
-    private Button btnSalir;
+    private Button btnActualizar, btnAgregar, btnEliminar, btnNuevo, btnSalir;
 
     @FXML
     private PasswordField pwfContrasena;
     @FXML
-    private TextField txtApellido;
-    @FXML
-    private TextField txtCedula;
-    @FXML
-    private TextField txtCorreo;
-    @FXML
-    private TextField txtNombre;
-    @FXML
-    private TextField txtTelefono;
-    @FXML
-    private TextField txtUsuario;
-    @FXML
-    private TextField txtdireccion;
+    private TextField txtApellido, txtCedula, txtCorreo, txtNombre, txtTelefono, txtUsuario, txtdireccion;
 
     @FXML
     private TableView<VendedorDto> tablaVendedor;
     @FXML
-    private TableColumn<VendedorDto, String> tcNombre;
-    @FXML
-    private TableColumn<VendedorDto, String> tcApellido;
-    @FXML
-    private TableColumn<VendedorDto, String> tcCedula;
-    @FXML
-    private TableColumn<VendedorDto, String> tcCorreo;
-    @FXML
-    private TableColumn<VendedorDto, String> tcDireccion;
-    @FXML
-    private TableColumn<VendedorDto, String> tcTelefono;
-    @FXML
-    private TableColumn<VendedorDto, String> tcUsuario;
-    @FXML
-    private TableColumn<VendedorDto, String> tcContrasena;
+    private TableColumn<VendedorDto, String> tcNombre, tcApellido,
+            tcCedula, tcCorreo, tcDireccion, tcTelefono, tcUsuario, tcContrasena;
 
     @FXML
     void initialize() {
         vendedorController = new VendedorController();
+        principalViewController = new PrincipalViewController();
         initView();
         btnNuevo.setOnAction(event -> onNuevoVendedor());
-        btnAgregar.setOnAction(this::onAgregarVendedor); // Asegúrate de que btnAgregar esté conectado
-        btnActualizar.setOnAction(this::onActualizarVendedor); // Asegúrate de que btnActualizar esté conectado
-        btnEliminar.setOnAction(this::onEliminarVendedor); // Asegúrate de que btnEliminar esté conectado
+        btnAgregar.setOnAction(this::onAgregarVendedor);
+        btnActualizar.setOnAction(this::onActualizarVendedor);
+        btnEliminar.setOnAction(this::onEliminarVendedor);
         btnSalir.setOnAction(this::onSalir);
     }
 
@@ -119,6 +83,7 @@ public class AgregarVendedorViewController {
         });
     }
 
+
     private void mostrarInformacionVendedor(VendedorDto vendedorSeleccionado) {
         if (vendedorSeleccionado != null) {
             txtNombre.setText(vendedorSeleccionado.nombre());
@@ -132,14 +97,15 @@ public class AgregarVendedorViewController {
         }
     }
 
-    private void agregarVendedor(){
+    private void agregarVendedor() {
         VendedorDto vendedorDto = crearVendedorDto();
-        if(validarDatos(vendedorDto)){
-            if(vendedorController.crearVendedor(vendedorDto)){
+        if (validarDatos(vendedorDto)) {
+            if (vendedorController.crearVendedor(vendedorDto)) {
                 listaVendedor.add(vendedorDto);
+                principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Vendedor agregado");
                 limpiarFormulario();
-            }else {
-                mostrarAlerta(Alert.AlertType.ERROR, "Error", "Vendedor no agregado");
+            } else {
+                principalViewController.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Vendedor no agregado");
             }
         }
     }
@@ -149,37 +115,41 @@ public class AgregarVendedorViewController {
                 || vendedorDto.cedula().isEmpty() || vendedorDto.direccion().isEmpty()
                 || vendedorDto.correo().isEmpty() || vendedorDto.telefono().isEmpty()
                 || vendedorDto.usuario().getNombreUsuario().isEmpty() || vendedorDto.usuario().getPassword().isEmpty()) {
-            showAlert("Advertencia", "Complete todos los campos.");
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Complete todos los campos.");
             return false;
         }
         if (vendedorDto.usuario().getPassword().length() < 6) {
-            showAlert("Advertencia", "La contraseña debe tener al menos 6 caracteres.");
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "La contraseña debe tener al menos 6 caracteres.");
             return false;
         }
         String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         if (!vendedorDto.correo().matches(emailRegex)) {
-            showAlert("Advertencia", "El correo electrónico no es válido.");
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El correo electrónico no es válido.");
             return false;
         }
         if (!vendedorDto.cedula().matches("\\d+")) {
-            showAlert("Advertencia", "La cédula solo debe contener números.");
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "La cédula solo debe tener números.");
             return false;
         }
         if (!vendedorDto.telefono().matches("\\d+")) {
-            showAlert("Advertencia", "El teléfono solo debe contener números.");
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El teléfono solo debe tener números.");
             return false;
         }
         if (vendedorDto.telefono().length() < 10) {
-            showAlert("Advertencia", "El teléfono debe tener al menos 10 digitos para que sea valido.");
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El teléfono debe tener al menos 10 dígitos.");
             return false;
         }
         return true;
     }
 
-
-    private VendedorDto crearVendedorDto(){
-        Usuario usuario = new Usuario();
-        usuario.setNombreUsuario(txtNombre.getText());
+    private VendedorDto crearVendedorDto() {
+        Usuario usuario;
+        if (vendedorSeleccionado != null) {
+            usuario = vendedorSeleccionado.usuario();
+        } else {
+            usuario = new Usuario();
+        }
+        usuario.setNombreUsuario(txtUsuario.getText());
         usuario.setPassword(pwfContrasena.getText());
         return new VendedorDto(
                 txtNombre.getText(),
@@ -203,13 +173,13 @@ public class AgregarVendedorViewController {
                 if (vendedorController.actualizarVendedor(vendedorDto)) {
                     listaVendedor.set(listaVendedor.indexOf(vendedorSeleccionado), vendedorDto);
                     limpiarFormulario();
-                    mostrarAlerta(Alert.AlertType.INFORMATION, "Vendedor actualizado exitosamente", "Vendedor actualizado");
+                    principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION, "Vendedor actualizado", "Vendedor actualizado exitosamente");
                 } else {
-                    mostrarAlerta(Alert.AlertType.ERROR, "Error", "Vendedor no actualizado");
+                    principalViewController.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Vendedor no actualizado");
                 }
             }
         } else {
-            mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione un vendedor para actualizar.");
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione un vendedor para actualizar.");
         }
     }
 
@@ -217,30 +187,21 @@ public class AgregarVendedorViewController {
         actualizarVendedor();
     }
 
-
     private void eliminarVendedor() {
         if (vendedorSeleccionado != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmación de Eliminación");
-            alert.setHeaderText("¿Estás seguro de que deseas eliminar al vendedor?");
-            alert.setContentText("Esta acción no se puede deshacer.");
-            ButtonType botonSi = new ButtonType("Sí");
-            ButtonType botonNo = new ButtonType("No");
-            alert.getButtonTypes().setAll(botonSi, botonNo);
-            Optional<ButtonType> resultado = alert.showAndWait();
-            if (resultado.isPresent() && resultado.get() == botonSi) {
+            if (principalViewController.mostrarAlertaConfirmacion("Confirmación de Eliminación", "¿Estás seguro de que deseas eliminar al vendedor?")) {
                 if (vendedorController.eliminarVendedor(vendedorSeleccionado.cedula())) {
                     listaVendedor.remove(vendedorSeleccionado);
+                    tablaVendedor.refresh();
                     vendedorSeleccionado = null;
-                    mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Vendedor eliminado con éxito.");
+                    tablaVendedor.getSelectionModel().clearSelection();
+                    principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Vendedor eliminado con éxito.");
                 } else {
-                    mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo eliminar el vendedor.");
+                    principalViewController.mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo eliminar el vendedor.");
                 }
-            } else {
-                mostrarAlerta(Alert.AlertType.INFORMATION, "Cancelado", "Eliminación del vendedor cancelada.");
             }
         } else {
-            mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione un vendedor para eliminar.");
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione un vendedor para eliminar.");
         }
     }
 
@@ -251,6 +212,7 @@ public class AgregarVendedorViewController {
     public void onNuevoVendedor() {
         limpiarFormulario();
         vendedorSeleccionado = null;
+        tablaVendedor.getSelectionModel().clearSelection();
     }
 
     private void limpiarFormulario() {
@@ -266,37 +228,8 @@ public class AgregarVendedorViewController {
 
     @FXML
     void onSalir(ActionEvent event) {
-        cargarNuevaVista("/co/edu/uniquindio/marketplace/marketplace/login.fxml");
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    private void cargarNuevaVista(String rutaFXML) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
-            Parent root = loader.load();
-            Stage stage = (Stage) btnSalir.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar la vista", "No se pudo cargar la nueva vista. " + e.getMessage());
-        }
-    }
-
-    // Método para mostrar alertas
-    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
+        principalViewController.navegarDatos("/co/edu/uniquindio/marketplace/marketplace/login.fxml");
+        Stage stage = (Stage) btnSalir.getScene().getWindow();
+        stage.close();
     }
 }
