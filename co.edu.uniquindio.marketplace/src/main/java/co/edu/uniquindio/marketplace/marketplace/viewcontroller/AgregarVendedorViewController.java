@@ -195,6 +195,7 @@ public class AgregarVendedorViewController {
                     tablaVendedor.refresh();
                     vendedorSeleccionado = null;
                     tablaVendedor.getSelectionModel().clearSelection();
+                    limpiarFormulario();
                     principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Vendedor eliminado con éxito.");
                 } else {
                     principalViewController.mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo eliminar el vendedor.");
