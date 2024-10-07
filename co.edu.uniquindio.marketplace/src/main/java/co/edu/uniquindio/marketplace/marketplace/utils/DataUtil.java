@@ -14,7 +14,7 @@ public class DataUtil {
                 .apellido("Robles")
                 .cedula("1080")
                 .direccion("La Tebaida")
-                .telefono("31055")
+                .telefono("3105456867")
                 .correo("stiven@gmail.com")
                 .build();
         marketplace.getListaVendedores().add(vendedor);
@@ -42,7 +42,7 @@ public class DataUtil {
                 .apellido("Zambrano")
                 .cedula("1012")
                 .direccion("Bogotá")
-                .telefono("314506")
+                .telefono("3145065645")
                 .correo("andres@gmail.com")
                 .build();
         marketplace.getListaAdministradores().add(administrador);

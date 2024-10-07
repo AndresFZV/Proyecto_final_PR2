@@ -27,7 +27,6 @@ public class ModelFactory implements IModelFactoryServices {
     private ModelFactory() {
         mapper = new MarketplaceMappingImpl();
         marketplace = DataUtil.inicializarDatos();
-
     }
 
     @Override
