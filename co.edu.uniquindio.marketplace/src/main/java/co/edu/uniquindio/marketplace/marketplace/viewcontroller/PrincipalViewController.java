@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,8 +39,11 @@ public class PrincipalViewController {
                 Parent root = loader.load();
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
-                stage.setScene(scene);
+                stage.setTitle("MARKETQUINDÍO");
                 stage.setResizable(false);
+                Image icono = new Image(getClass().getResourceAsStream("/img/carritoIcono.png"));
+                stage.getIcons().add(icono);
+                stage.setScene(scene);
                 stage.show();
             }catch (Exception e){
                 e.printStackTrace();

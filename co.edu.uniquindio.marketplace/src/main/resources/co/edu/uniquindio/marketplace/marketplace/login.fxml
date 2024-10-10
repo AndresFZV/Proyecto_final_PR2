@@ -22,7 +22,7 @@
                             </font>
                         </Label>
                         <PasswordField fx:id="pwfLogin" layoutX="61.0" layoutY="294.0" prefHeight="30.0" prefWidth="220.0" promptText="Contraseña" />
-                        <Button fx:id="btnLogin" layoutX="61.0" layoutY="344.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0" style="-fx-text-fill: white; -fx-background-color: #21a44f;" text="Iniciar sesión">
+                        <Button fx:id="btnLogin" layoutX="61.0" layoutY="344.0" mnemonicParsing="false" onAction="#onIniciarSesion" prefHeight="30.0" prefWidth="220.0" style="-fx-text-fill: white; -fx-background-color: #21a44f;" text="Iniciar sesión">
                             <font>
                                 <Font name="System Bold Italic" size="15.0" />
                             </font>

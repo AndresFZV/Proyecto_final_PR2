@@ -1,6 +1,7 @@
 package co.edu.uniquindio.marketplace.marketplace.viewcontroller;
 
 import co.edu.uniquindio.marketplace.marketplace.controller.VendedorController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,42 +19,41 @@ public class LoginViewController {
 
     @FXML
     private Button btnLogin;
-
     @FXML
     private PasswordField pwfLogin;
-
     @FXML
     private TextField txtUsuarioLogin;
-
     private VendedorController vendedorController;
+    private PrincipalViewController principalViewController;
 
     @FXML
     public void initialize() {
+        principalViewController = new PrincipalViewController();
         vendedorController = new VendedorController();
-        btnLogin.setOnAction(event -> iniciarSesion());
+        btnLogin.setOnAction(this::onIniciarSesion);
     }
 
-    private void iniciarSesion() {
+
+    @FXML
+    void onIniciarSesion(ActionEvent event) {
+        inicioSesion();
+    }
+
+    private void inicioSesion(){
         String nombreUsuario = txtUsuarioLogin.getText();
         String password = pwfLogin.getText();
         if(validarAdmin(nombreUsuario, password)){
-            cargarNuevaVista("/co/edu/uniquindio/marketplace/marketplace/panelControl.fxml");
+            principalViewController.navegarDatos("/co/edu/uniquindio/marketplace/marketplace/panelControl.fxml");
+            Stage stage = (Stage) btnLogin.getScene().getWindow();
+            stage.close();
+        }else if(vendedorController.validarVendedor(nombreUsuario, password)){
+            principalViewController.navegarDatos("/co/edu/uniquindio/marketplace/marketplace/panelControl.fxml");
+            Stage stage = (Stage) btnLogin.getScene().getWindow();
+            stage.close();
+        }else{
+            principalViewController.mostrarAlerta(AlertType.ERROR, "Error de Inicio de Sesión",
+                    "Nombre de usuario o contraseña incorrectos.");
         }
-        else if(vendedorController.validarVendedor(nombreUsuario, password)) {
-            cargarNuevaVista("/co/edu/uniquindio/marketplace/marketplace/panelControl.fxml");
-        }
-        else {
-            mostrarAlerta(AlertType.ERROR, "Error de Inicio de Sesión", "Nombre de usuario o contraseña incorrectos.");
-        }
-    }
-
-    // Método para mostrar alertas
-    private void mostrarAlerta(AlertType tipo, String titulo, String mensaje) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
     }
 
     // Método para validar las credenciales del administrador
@@ -61,18 +61,4 @@ public class LoginViewController {
         return "AndresFZV".equals(nombreUsuario) && "1234567".equals(password);
     }
 
-    // Método para cargar una nueva vista
-    private void cargarNuevaVista(String rutaFXML) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
-            Parent root = loader.load();
-            Stage stage = (Stage) btnLogin.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            mostrarAlerta(AlertType.ERROR, "Error al cargar la vista", "No se pudo cargar la nueva vista. " + e.getMessage());
-        }
-    }
 }
