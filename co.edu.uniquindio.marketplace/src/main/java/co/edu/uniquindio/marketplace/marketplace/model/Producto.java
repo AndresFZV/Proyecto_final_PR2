@@ -1,28 +1,29 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
+import javafx.scene.image.Image;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class Producto {
 
     private String nombre;
     private String descripcion;
-    private String imagen;
+    private Image imagen;
     private String categoria;
     private double precio;
     private String estado;
 
-    // Constructor vacío
     public Producto() {
     }
-    // Constructor con todos sus atributos
-    public Producto(String nombre, String descripcion, String imagen, String categoria, double precio, String estado) {
+    public Producto(String nombre, String descripcion, String imagenPath, String categoria, double precio, String estado) throws FileNotFoundException {
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.imagen = imagen;
+        this.imagen = new Image(new FileInputStream(imagenPath));
         this.categoria = categoria;
         this.precio = precio;
         this.estado = estado;
     }
 
-    // Getters y Setters
     public String getNombre() {
         return nombre;
     }
@@ -35,11 +36,11 @@ public class Producto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    public String getImagen() {
+    public Image getImagen() {
         return imagen;
     }
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setImagen(String imagenPath) throws FileNotFoundException {
+        this.imagen = new Image(new FileInputStream(imagenPath));
     }
     public String getCategoria() {
         return categoria;
@@ -60,13 +61,11 @@ public class Producto {
         this.estado = estado;
     }
 
-    // Método toString
     @Override
     public String toString() {
         return "Producto{" +
                 "nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
-                ", imagen='" + imagen + '\'' +
                 ", categoria='" + categoria + '\'' +
                 ", precio=" + precio +
                 ", estado='" + estado + '\'' +
