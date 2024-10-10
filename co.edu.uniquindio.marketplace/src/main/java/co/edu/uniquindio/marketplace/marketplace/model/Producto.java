@@ -1,12 +1,15 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
 import javafx.scene.image.Image;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Random;
+import java.util.UUID;
+
 import co.edu.uniquindio.marketplace.marketplace.model.builder.*;
 
 public class Producto {
 
+    private String productoId;
     private String nombre;
     private String descripcion;
     private Image imagen;
@@ -16,7 +19,9 @@ public class Producto {
 
     public Producto() {
     }
-    public Producto(String nombre, String descripcion, Image imagen, String categoria, double precio, String estado) throws FileNotFoundException {
+    public Producto(String productoId, String nombre, String descripcion, Image imagen,
+                    String categoria, double precio, String estado) {
+        this.productoId = productoId;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.imagen = imagen;
@@ -25,10 +30,16 @@ public class Producto {
         this.estado = estado;
     }
 
-    public static ProductoBuilder buider(){
+    public static ProductoBuilder builder() {
         return new ProductoBuilder();
     }
 
+    public String getProductoId() {
+        return productoId;
+    }
+    public void setProductoId(String productoId) {
+        this.productoId = productoId;
+    }
     public String getNombre() {
         return nombre;
     }
@@ -69,6 +80,7 @@ public class Producto {
     @Override
     public String toString() {
         return "Producto{" +
+                "productoId='" + productoId + '\'' +
                 "nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", categoria='" + categoria + '\'' +

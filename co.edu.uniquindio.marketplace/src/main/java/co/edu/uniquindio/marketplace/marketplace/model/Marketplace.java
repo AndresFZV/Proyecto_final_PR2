@@ -1,6 +1,8 @@
 package co.edu.uniquindio.marketplace.marketplace.model;
 
+import co.edu.uniquindio.marketplace.marketplace.mapping.dto.ProductoDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +15,8 @@ public class Marketplace {
     List<Producto> listaProductos = new ArrayList<>();
     List<Administrador> listaAdministradores = new ArrayList<>();
 
-    // Constructor vacío
     public Marketplace() {
     }
-
 
     public boolean actualizarVendedor(VendedorDto vendedorDto) {
         for (Vendedor vendedor : listaVendedores) {
@@ -53,8 +53,6 @@ public class Marketplace {
         return false;
     }
 
-
-
     public Boolean crearVendedor(Vendedor nuevoVendedor) {
         Vendedor vendedorEncontrado = obtenerVendedor(nuevoVendedor.getCedula());
         if (vendedorEncontrado == null) {
@@ -76,6 +74,20 @@ public class Marketplace {
                 .usuario(usuario)
                 .build();
     }
+
+    private Producto getBuildProducto(String productoId,String nombre, String descripcion, Image imagen,
+                                      String categoria, double precio, String estado){
+        return Producto.builder()
+                .productoId(productoId)
+                .nombre(nombre)
+                .descripcion(descripcion)
+                .imagen(imagen)
+                .categoria(categoria)
+                .precio(precio)
+                .estado(estado)
+                .build();
+    }
+
     private Vendedor obtenerVendedor(String cedula) {
         Vendedor vendedor = null;
         for (Vendedor vendedor1 : getListaVendedores()) {
@@ -88,6 +100,51 @@ public class Marketplace {
         return vendedor;
     }
 
+    public Boolean crearProducto(Producto nuevoProducto) {
+        Producto productoEncontrado = obtenerProducto(nuevoProducto.getProductoId());
+        if (productoEncontrado == null) {
+            getListaProductos().add(nuevoProducto);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean actualizarProducto(ProductoDto productoDto) {
+        for (Producto producto : listaProductos) {
+            if (producto.getProductoId().equals(productoDto.productoId())) {
+                producto.setNombre(productoDto.nombre());
+                producto.setDescripcion(productoDto.descripcion());
+                producto.setImagen(productoDto.imagen());
+                producto.setCategoria(productoDto.categoria());
+                producto.setPrecio(productoDto.precio());
+                producto.setEstado(productoDto.estado());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean eliminarProducto(String productoId) {
+        Producto producto = obtenerProducto(productoId);
+        if (producto != null) {
+            getListaProductos().remove(producto);
+            return true;
+        }
+        return false;
+    }
+
+
+    private Producto obtenerProducto(String productoId){
+        Producto producto = null;
+        for (Producto producto1 : getListaProductos()) {
+            if (producto1.getProductoId().equalsIgnoreCase(productoId)) {
+                producto = producto1;
+                break;
+            }
+        }
+
+        return producto;
+    }
 
     public String getNombre() {
         return nombre;

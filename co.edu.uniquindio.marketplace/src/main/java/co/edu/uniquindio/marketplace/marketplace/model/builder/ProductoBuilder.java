@@ -3,10 +3,9 @@ package co.edu.uniquindio.marketplace.marketplace.model.builder;
 import co.edu.uniquindio.marketplace.marketplace.model.Producto;
 import javafx.scene.image.Image;
 
-import java.io.FileNotFoundException;
-
 public class ProductoBuilder {
 
+   protected String productoId;
    protected String nombre;
    protected String descripcion;
    protected Image imagen;
@@ -14,6 +13,10 @@ public class ProductoBuilder {
    protected double precio;
    protected String estado;
 
+   public ProductoBuilder productoId(String productoId) {
+       this.productoId = productoId;
+       return this;
+   }
    public ProductoBuilder nombre(String nombre) {
        this.nombre = nombre;
        return this;
@@ -38,7 +41,7 @@ public class ProductoBuilder {
        this.estado = estado;
        return this;
    }
-   public Producto build() throws FileNotFoundException {
-       return new Producto(nombre, descripcion, imagen, categoria, precio, estado);
+   public Producto build(){
+       return new Producto(productoId, nombre, descripcion, imagen, categoria, precio, estado);
    }
 }
