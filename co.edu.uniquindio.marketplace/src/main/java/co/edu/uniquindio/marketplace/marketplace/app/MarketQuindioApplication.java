@@ -15,7 +15,7 @@ public class MarketQuindioApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("MARKETQUINDÍO");
         stage.setResizable(false);
-        Image icono = new Image(getClass().getResourceAsStream("/img/carritoIcono.png"));
+        Image icono = new Image(getClass().getResourceAsStream("/img/proyecto/carritoIcono.png"));
         stage.getIcons().add(icono);
         stage.setScene(scene);
         stage.show();
