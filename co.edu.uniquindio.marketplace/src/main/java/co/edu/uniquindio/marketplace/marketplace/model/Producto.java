@@ -3,6 +3,7 @@ package co.edu.uniquindio.marketplace.marketplace.model;
 import javafx.scene.image.Image;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import co.edu.uniquindio.marketplace.marketplace.model.builder.*;
 
 public class Producto {
 
@@ -15,13 +16,17 @@ public class Producto {
 
     public Producto() {
     }
-    public Producto(String nombre, String descripcion, String imagenPath, String categoria, double precio, String estado) throws FileNotFoundException {
+    public Producto(String nombre, String descripcion, Image imagen, String categoria, double precio, String estado) throws FileNotFoundException {
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.imagen = new Image(new FileInputStream(imagenPath));
+        this.imagen = imagen;
         this.categoria = categoria;
         this.precio = precio;
         this.estado = estado;
+    }
+
+    public static ProductoBuilder buider(){
+        return new ProductoBuilder();
     }
 
     public String getNombre() {
@@ -39,8 +44,8 @@ public class Producto {
     public Image getImagen() {
         return imagen;
     }
-    public void setImagen(String imagenPath) throws FileNotFoundException {
-        this.imagen = new Image(new FileInputStream(imagenPath));
+    public void setImagen(Image imagen) {
+        this.imagen = imagen;
     }
     public String getCategoria() {
         return categoria;
