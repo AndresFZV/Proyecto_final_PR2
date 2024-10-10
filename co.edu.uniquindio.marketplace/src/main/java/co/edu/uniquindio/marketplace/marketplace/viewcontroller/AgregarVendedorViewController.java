@@ -82,6 +82,9 @@ public class AgregarVendedorViewController {
             txtTelefono.setText(vendedorSeleccionado.telefono());
             txtUsuario.setText(vendedorSeleccionado.usuario().getNombreUsuario());
             pwfContrasena.setText(vendedorSeleccionado.usuario().getPassword());
+            txtCedula.setDisable(true);
+        }else{
+            txtCedula.setDisable(false);
         }
     }
 
@@ -108,6 +111,7 @@ public class AgregarVendedorViewController {
     private void agregarVendedor() {
         VendedorDto vendedorDto = crearVendedorDto();
         if (validarDatos(vendedorDto)) {
+            txtCedula.setDisable(false);
             if (vendedorController.crearVendedor(vendedorDto)) {
                 listaVendedor.add(vendedorDto);
                 principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION,
@@ -123,6 +127,7 @@ public class AgregarVendedorViewController {
 
     private void actualizarVendedor() {
         if (vendedorSeleccionado != null) {
+            txtCedula.setDisable(false);
             VendedorDto vendedorDto = crearVendedorDto();
             if (validarDatos(vendedorDto)) {
                 if (vendedorController.actualizarVendedor(vendedorDto)) {
@@ -144,6 +149,7 @@ public class AgregarVendedorViewController {
 
     private void eliminarVendedor() {
         if (vendedorSeleccionado != null) {
+            txtCedula.setDisable(true);
             if (principalViewController.mostrarAlertaConfirmacion(
                     "Confirmación de Eliminación", "¿Estás seguro de que deseas eliminar al vendedor?")) {
                 if (vendedorController.eliminarVendedor(vendedorSeleccionado.cedula())) {

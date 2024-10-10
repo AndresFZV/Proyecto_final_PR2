@@ -36,7 +36,28 @@
                 </Tab>
                 <Tab text="Vendedor">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="960.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="606.0" prefWidth="919.0">
+                     <children>
+                        <TabPane layoutX="-5.0" prefHeight="590.0" prefWidth="976.0" tabClosingPolicy="UNAVAILABLE">
+                           <tabs>
+                              <Tab text="Muro">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </Tab>
+                              <Tab text="Agregar Producto">
+                                 <content>
+                                    <Pane prefHeight="613.0" prefWidth="960.0">
+                                       <children>
+                                          <Pane layoutX="14.0" layoutY="14.0" prefHeight="594.0" prefWidth="956.0" />
+                                       </children>
+                                    </Pane>
+                                    <fx:include source="agregarProducto.fxml" />
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
+                     </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab text="Vendedor 2">

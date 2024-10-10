@@ -3,20 +3,13 @@ package co.edu.uniquindio.marketplace.marketplace.viewcontroller;
 import co.edu.uniquindio.marketplace.marketplace.controller.VendedorController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.scene.Parent;
-
-import java.io.IOException;
 
 public class LoginViewController {
-
     @FXML
     private Button btnLogin;
     @FXML
@@ -32,7 +25,6 @@ public class LoginViewController {
         vendedorController = new VendedorController();
         btnLogin.setOnAction(this::onIniciarSesion);
     }
-
 
     @FXML
     void onIniciarSesion(ActionEvent event) {
@@ -56,9 +48,7 @@ public class LoginViewController {
         }
     }
 
-    // Método para validar las credenciales del administrador
     private boolean validarAdmin(String nombreUsuario, String password) {
         return "AndresFZV".equals(nombreUsuario) && "1234567".equals(password);
     }
-
 }

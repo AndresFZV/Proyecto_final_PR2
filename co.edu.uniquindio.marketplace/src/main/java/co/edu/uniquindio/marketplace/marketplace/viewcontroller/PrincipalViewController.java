@@ -41,7 +41,7 @@ public class PrincipalViewController {
                 Stage stage = new Stage();
                 stage.setTitle("MARKETQUINDÍO");
                 stage.setResizable(false);
-                Image icono = new Image(getClass().getResourceAsStream("/img/carritoIcono.png"));
+                Image icono = new Image(getClass().getResourceAsStream("/img/proyecto/carritoIcono.png"));
                 stage.getIcons().add(icono);
                 stage.setScene(scene);
                 stage.show();

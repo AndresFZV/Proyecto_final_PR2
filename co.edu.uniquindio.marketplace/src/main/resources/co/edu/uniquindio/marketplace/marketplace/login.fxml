@@ -30,7 +30,7 @@
                         <TextField fx:id="txtUsuarioLogin" layoutX="61.0" layoutY="236.0" prefHeight="30.0" prefWidth="220.0" promptText="Usuario" />
                         <ImageView fitHeight="106.0" fitWidth="149.0" layoutX="118.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../../../img/user.png" />
+                                <Image url="@../../../../../img/proyecto/user.png" />
                             </image>
                         </ImageView>
                     </children>
@@ -39,7 +39,7 @@
                     <children>
                         <ImageView fitHeight="219.0" fitWidth="261.0" layoutX="35.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../../../img/carritoDosIcono-removebg-preview.png" />
+                                <Image url="@../../../../../img/proyecto/carritoDosIcono-removebg-preview.png" />
                             </image>
                         </ImageView>
                     </children>
