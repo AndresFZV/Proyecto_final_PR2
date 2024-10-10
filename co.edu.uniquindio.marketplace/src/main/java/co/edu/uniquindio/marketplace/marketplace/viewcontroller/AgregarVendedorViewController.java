@@ -165,10 +165,20 @@ public class AgregarVendedorViewController {
         }
     }
 
-    public void onNuevoVendedor() {
+    private void cerrarSesion(){
+        principalViewController.navegarDatos("/co/edu/uniquindio/marketplace/marketplace/login.fxml");
+        Stage stage = (Stage) btnSalir.getScene().getWindow();
+        stage.close();
+    }
+
+    private void limpiarCamposTexto(){
         limpiarFormulario();
         vendedorSeleccionado = null;
         tablaVendedor.getSelectionModel().clearSelection();
+    }
+
+    public void onNuevoVendedor() {
+        limpiarCamposTexto();
     }
 
     public void onAgregarVendedor(ActionEvent actionEvent) {
@@ -185,9 +195,7 @@ public class AgregarVendedorViewController {
 
     @FXML
      public void onSalir(ActionEvent event) {
-        principalViewController.navegarDatos("/co/edu/uniquindio/marketplace/marketplace/login.fxml");
-        Stage stage = (Stage) btnSalir.getScene().getWindow();
-        stage.close();
+        cerrarSesion();
     }
 
     private void listenerSelection() {

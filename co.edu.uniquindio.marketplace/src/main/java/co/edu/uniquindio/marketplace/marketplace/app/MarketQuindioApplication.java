@@ -10,7 +10,8 @@ import java.io.IOException;
 public class MarketQuindioApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MarketQuindioApplication.class.getResource("/co/edu/uniquindio/marketplace/marketplace/login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MarketQuindioApplication.class.getResource(
+                "/co/edu/uniquindio/marketplace/marketplace/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("MARKETQUINDÍO");
         stage.setResizable(false);
