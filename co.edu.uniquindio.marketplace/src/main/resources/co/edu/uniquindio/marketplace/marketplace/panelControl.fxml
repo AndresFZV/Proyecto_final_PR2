@@ -34,7 +34,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Vendedor">
+                <Tab fx:id="tabVendedor" text="Vendedor">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="606.0" prefWidth="919.0">
                      <children>
@@ -58,16 +58,6 @@
                            </tabs>
                         </TabPane>
                      </children></AnchorPane>
-                    </content>
-                </Tab>
-                <Tab text="Vendedor 2">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="960.0" />
-                    </content>
-                </Tab>
-                <Tab fx:id="tabVendedor3" text="Vendedor 3">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="960.0" />
                     </content>
                 </Tab>
             </tabs>
