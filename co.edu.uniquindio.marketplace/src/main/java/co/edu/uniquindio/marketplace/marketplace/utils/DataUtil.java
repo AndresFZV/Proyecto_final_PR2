@@ -61,7 +61,7 @@ public class DataUtil {
         int id = random.nextInt(9000) + 1000;
         producto.setProductoId(String.valueOf(id));
         producto.setNombre("El principito");
-        producto.setDescripcion("Un libro clásico de Antoine de Saint-Exupéry.");
+        producto.setDescripcion("Un libro clásico");
         producto.setCategoria(Categoria.LIBROS.toString());
         producto.setPrecio(55000);
         producto.setEstado(Estado.PUBLICADO.toString());
