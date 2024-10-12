@@ -9,5 +9,7 @@ public class PanelControlViewController {
     private Tab tabAdmin;
 
     @FXML
-    private Tab tabVendedor3;
+    private Tab tabVendedor;
+
 }
+
