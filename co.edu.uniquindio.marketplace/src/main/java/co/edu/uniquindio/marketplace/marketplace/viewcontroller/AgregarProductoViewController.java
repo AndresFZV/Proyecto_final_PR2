@@ -118,7 +118,6 @@ public class AgregarProductoViewController {
         });
     }
 
-
     private void initDataBinding() {
         tcID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().productoId()));
         tcNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().nombre()));
@@ -160,6 +159,10 @@ public class AgregarProductoViewController {
         }
         if (estado == null) {
             principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione un estado.");
+            return null;
+        }
+        if (archivoImagen == null) {
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione una imagen para el producto.");
             return null;
         }
         ProductoDto productoDto = new ProductoDto(
@@ -315,7 +318,7 @@ public class AgregarProductoViewController {
         }
         if (productoDto.categoria() == null || productoDto.categoria().isEmpty()) {
             principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "La categoría es obligatoria.");
-            return false; // Marcar como no válido
+            return false;
         }
         if (productoDto.estado() == null || productoDto.estado().isEmpty()) {
             principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El estado es obligatorio.");
