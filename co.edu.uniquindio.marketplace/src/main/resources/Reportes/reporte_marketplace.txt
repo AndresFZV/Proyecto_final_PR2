@@ -1,0 +1,131 @@
+=== Reporte del Marketplace ===
+Nombre del Marketplace: MarketQuindío
+
+Título: Reporte general Marketplace
+
+Generado por: admin
+Fecha de generación: 2024-11-19T14:57:53.937144500
+
+=== Vendedores ===
+Nombre: Andrés Zambrano
+Cédula: 1012317108
+Correo: andres@gmail.com
+Teléfono: 3145065645
+Productos:
+  - Vinilo DAMN (Estado: PUBLICADO)
+  - Vinilo Blonde (Estado: PUBLICADO)
+  - PlayStation5 (Estado: PUBLICADO)
+
+Nombre: John Cardona
+Cédula: 1090567890
+Correo: john@gmail.com
+Teléfono: 3108609088
+Productos:
+  - Camiseta Real Madrid (Estado: PUBLICADO)
+  - Bolsa de papas (Estado: PUBLICADO)
+
+Nombre: Stiven Robles
+Cédula: 1012318208
+Correo: stiven@gmail.com
+Teléfono: 3105456867
+Productos:
+  - El principito (Estado: PUBLICADO)
+  - Six Pack de Poker lata (Estado: PUBLICADO)
+  - Raqueta de tenis (Estado: PUBLICADO)
+
+Nombre: Angelica Reyes
+Cédula: 1090287231
+Correo: angelica@gmail.com
+Teléfono: 3006188127
+Productos:
+  - Matematicas Simplificadas (Estado: PUBLICADO)
+  - Gorra (Estado: PUBLICADO)
+  - Cuadros (Estado: PUBLICADO)
+
+Nombre: David Bedoya
+Cédula: 1122334455
+Correo: david1@gmail.com
+Teléfono: 3176544129
+Productos:
+  - PlayStation4 (Estado: PUBLICADO)
+  - RTX 3060 (Estado: PUBLICADO)
+
+=== Productos ===
+ID: 7605
+Nombre: El principito
+Categoría: LIBROS
+Precio: $55000.0
+Estado: PUBLICADO
+
+ID: 6309
+Nombre: Vinilo DAMN
+Categoría: MUSICA
+Precio: $300000.0
+Estado: PUBLICADO
+
+ID: 2508
+Nombre: Vinilo Blonde
+Categoría: MUSICA
+Precio: $295000.0
+Estado: PUBLICADO
+
+ID: 9819
+Nombre: PlayStation5
+Categoría: TECNOLOGIA
+Precio: $3750000.0
+Estado: PUBLICADO
+
+ID: 1554
+Nombre: Camiseta Real Madrid
+Categoría: ROPA
+Precio: $200000.0
+Estado: PUBLICADO
+
+ID: 4079
+Nombre: Bolsa de papas
+Categoría: ALIMENTOS
+Precio: $25000.0
+Estado: PUBLICADO
+
+ID: 1134
+Nombre: Six Pack de Poker lata
+Categoría: OTROS
+Precio: $24000.0
+Estado: PUBLICADO
+
+ID: 1522
+Nombre: Raqueta de tenis
+Categoría: DEPORTES
+Precio: $125000.0
+Estado: PUBLICADO
+
+ID: 3953
+Nombre: Matematicas Simplificadas
+Categoría: LIBROS
+Precio: $223200.0
+Estado: PUBLICADO
+
+ID: 1743
+Nombre: Gorra
+Categoría: ROPA
+Precio: $25000.0
+Estado: PUBLICADO
+
+ID: 8596
+Nombre: Cuadros
+Categoría: HOGAR
+Precio: $55000.0
+Estado: PUBLICADO
+
+ID: 2165
+Nombre: PlayStation4
+Categoría: TECNOLOGIA
+Precio: $1560000.0
+Estado: PUBLICADO
+
+ID: 8935
+Nombre: RTX 3060
+Categoría: TECNOLOGIA
+Precio: $1700000.0
+Estado: PUBLICADO
+

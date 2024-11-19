@@ -89,14 +89,6 @@ public class AgregarVendedorViewController {
     }
 
     private VendedorDto crearVendedorDto() {
-        Usuario usuario;
-        if (vendedorSeleccionado != null) {
-            usuario = vendedorSeleccionado.usuario();
-        } else {
-            usuario = new Usuario();
-        }
-        usuario.setNombreUsuario(txtUsuario.getText());
-        usuario.setPassword(pwfContrasena.getText());
         return new VendedorDto(
                 txtNombre.getText(),
                 txtApellido.getText(),
@@ -104,8 +96,20 @@ public class AgregarVendedorViewController {
                 txtdireccion.getText(),
                 txtTelefono.getText(),
                 txtCorreo.getText(),
-                usuario
+                crearUsuario()
         );
+    }
+
+    private Usuario crearUsuario(){
+        Usuario usuario;
+        if(vendedorSeleccionado != null){
+            usuario = vendedorSeleccionado.usuario();
+        }else{
+            usuario = new Usuario();
+        }
+        usuario.setNombreUsuario(txtUsuario.getText());
+        usuario.setPassword(pwfContrasena.getText());
+        return usuario;
     }
 
     private void agregarVendedor() {

@@ -42,6 +42,6 @@ public class ProductoBuilder {
        return this;
    }
    public Producto build(){
-       return new Producto(productoId, nombre, descripcion, imagen, categoria, precio, estado);
+       return new Producto(productoId, nombre, descripcion, imagen, categoria, precio);
    }
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="420.0" prefWidth="439.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.marketplace.marketplace.viewcontroller.ProductoDetailsViewController">
+    <!-- Contenedor principal -->
+    <VBox alignment="CENTER_LEFT" layoutX="31.0" layoutY="31.0" prefHeight="358.0" prefWidth="377.0" spacing="10.0">
+
+        <!-- Nombre del producto centrado y en negrita -->
+        <Text fx:id="nombreProducto" style="-fx-font-weight: bold; -fx-font-size: 16;" textAlignment="CENTER" />
+
+        <!-- Cuadro para la imagen con sombra -->
+        <Pane>
+            <!-- Fondo con sombra -->
+            <Rectangle arcHeight="10" arcWidth="10" fill="#FFFFFF" height="180" stroke="#B0B0B0" strokeWidth="2" width="180" />
+            <ImageView fx:id="imgProducto" fitHeight="180" fitWidth="180" layoutX="5" layoutY="5">
+                <effect>
+                    <DropShadow color="rgba(0, 0, 0, 0.3)" offsetX="5" offsetY="5" radius="10" />
+                </effect>
+            </ImageView>
+            <VBox alignment="TOP_LEFT" layoutX="194.0" layoutY="22.0" prefHeight="146.0" prefWidth="237.0" spacing="10.0">
+                <children>
+
+                    <!-- Descripción del producto -->
+                    <Text fx:id="descripcionProducto" textAlignment="LEFT" wrappingWidth="206.0" />
+
+                    <!-- Categoría del producto -->
+                    <Text fx:id="categoriaProducto" style="-fx-font-style: italic;" textAlignment="LEFT" />
+
+                    <!-- Cuadro gris con etiquetas en negrita -->
+                    <Text fx:id="etiquetasProducto" style="-fx-font-weight: bold; -fx-background-color: #D3D3D3; -fx-padding: 5;" textAlignment="LEFT" wrappingWidth="206.0" />
+
+                    <!-- Precio del producto -->
+                    <Text fx:id="precioProducto" style="-fx-font-weight: bold;" textAlignment="LEFT" wrappingWidth="113.6" />
+
+                </children>
+            </VBox>
+
+        </Pane>
+
+        <!-- HBox para "Me Gusta" y el contador -->
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <Button fx:id="botonMeGusta" alignment="CENTER" contentDisplay="TOP" onAction="#agregarMeGusta" prefWidth="70" text="Me Gusta" />
+            <Text fx:id="meGustaProducto" style="-fx-font-weight: bold;" />
+        </HBox>
+
+        <!-- TextArea para comentarios -->
+        <TextArea fx:id="comentarioArea" prefHeight="60" prefWidth="350" promptText="Comentario..." />
+
+        <!-- HBox para los botones de acción -->
+        <HBox alignment="CENTER" prefHeight="26.0" prefWidth="201.0" spacing="10.0">
+            <children>
+                <!-- Botón para comentar -->
+                <Button fx:id="comentarButton" alignment="CENTER" onAction="#agregarComentario" prefWidth="90" text="Comentar" />
+
+                <!-- Botón para cerrar la ventana -->
+                <Button fx:id="cerrarVentana" onAction="#cerrarVentana" prefWidth="90" text="Cerrar" />
+            </children>
+        </HBox>
+    </VBox>
+</AnchorPane>

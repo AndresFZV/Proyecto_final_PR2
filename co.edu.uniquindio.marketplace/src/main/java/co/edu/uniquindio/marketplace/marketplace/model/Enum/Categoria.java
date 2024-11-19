@@ -3,6 +3,7 @@ package co.edu.uniquindio.marketplace.marketplace.model.Enum;
 public enum Categoria {
     ROPA,
     HOGAR,
+    MUSICA,
     ALIMENTOS,
     LIBROS,
     DEPORTES,

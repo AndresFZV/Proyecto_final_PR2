@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.Background?>
+<?import javafx.scene.layout.BackgroundFill?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane prefHeight="272.0" prefWidth="467.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="co.edu.uniquindio.marketplace.marketplace.viewcontroller.MuroViewController">
+    <content>
+        <GridPane fx:id="gridPaneProductos" hgap="20" vgap="20" style="-fx-background-color: #f5f5f5;">
+            <!-- Aquí se agregarán los productos dinámicamente -->
+        </GridPane>
+    </content>
+</ScrollPane>

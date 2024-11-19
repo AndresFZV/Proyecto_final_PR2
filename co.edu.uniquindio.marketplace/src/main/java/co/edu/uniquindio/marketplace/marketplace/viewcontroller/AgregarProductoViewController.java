@@ -1,9 +1,11 @@
 package co.edu.uniquindio.marketplace.marketplace.viewcontroller;
 
 import co.edu.uniquindio.marketplace.marketplace.controller.ProductoController;
+import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.ProductoDto;
 import co.edu.uniquindio.marketplace.marketplace.model.Enum.Categoria;
 import co.edu.uniquindio.marketplace.marketplace.model.Enum.Estado;
+import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,11 +51,11 @@ public class AgregarProductoViewController {
     @FXML
     private ComboBox<Estado> cbEstado;
 
-    @FXML
-    private TableView<ProductoDto> tablaProducto;
+        @FXML
+        private TableView<ProductoDto> tablaProducto;
 
-    @FXML
-    private TableColumn<ProductoDto, String> tcID, tcNombre, tcPrecio, tcDescripcion, tcCategoria, tcEstado;
+        @FXML
+        private TableColumn<ProductoDto, String> tcID, tcNombre, tcPrecio, tcDescripcion, tcCategoria, tcEstado;
 
     @FXML
     private TextField txtDescripcion;
@@ -73,6 +75,8 @@ public class AgregarProductoViewController {
     private ObservableList<ProductoDto> listaProductos = FXCollections.observableArrayList();
     private final ObservableList<Categoria> listaCategorias = FXCollections.observableArrayList();
     private final ObservableList<Estado> listaEstados = FXCollections.observableArrayList();
+    private final ModelFactory modelFactory = ModelFactory.getInstance();
+    private Vendedor vendedor;
 
     @FXML
     void initialize() {
@@ -87,11 +91,14 @@ public class AgregarProductoViewController {
         btnEliminar.setOnAction(this::onEliminarProducto);
         btnSalir.setOnAction(this::onSalir);
         btnAgregarImagen.setOnAction(this::onAgregarImagen);
+        cbEstado.getValue();
+        cbCategoria.getValue();
     }
 
     private void llenarCbEstado() {
         listaEstados.setAll(Estado.values());
         cbEstado.setItems(listaEstados);
+
     }
 
     private void llenarCbCategoria() {
@@ -127,17 +134,30 @@ public class AgregarProductoViewController {
         tcPrecio.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().precio())));
     }
 
+
+    public void setVendedor(Vendedor vendedor){
+        this.vendedor = vendedor;
+        obtenerProductos();
+    }
+
     private void obtenerProductos() {
         listaProductos.clear();
-        listaProductos.addAll(productoController.obtenerProducto());
+        if (vendedor != null) {
+            // Suponiendo que tu controlador ProductoController tiene este método
+            listaProductos.addAll(productoController.obtenerProductosVendedor(vendedor));
+        }
         tablaProducto.setItems(listaProductos);
     }
+
+
 
     private void mostrarInformacionProductos(ProductoDto productoSeleccionado) {
         txtID.setText(productoSeleccionado.productoId());
         txtNombre.setText(productoSeleccionado.nombre());
         txtDescripcion.setText(productoSeleccionado.descripcion());
         txtPrecio.setText(String.valueOf(productoSeleccionado.precio()));
+        cbEstado.setValue(Estado.valueOf(productoSeleccionado.estado()));
+        cbCategoria.setValue(Categoria.valueOf(productoSeleccionado.categoria()));
     }
 
     private void mostrarImagenProducto(ProductoDto productoSeleccionado){
@@ -149,60 +169,34 @@ public class AgregarProductoViewController {
     }
 
     private ProductoDto crearProductoDto() {
-        String idProducto = (productoSeleccionado != null) ? productoSeleccionado.productoId() : crearIdProducto();
-        Image imagenProducto = (archivoImagen != null) ? new Image(archivoImagen.toURI().toString()) : null;
-        Categoria categoria = cbCategoria.getValue();
-        Estado estado = cbEstado.getValue();
-        if (categoria == null) {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione una categoría.");
-            return null;
-        }
-        if (estado == null) {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione un estado.");
-            return null;
-        }
-        if (archivoImagen == null) {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione una imagen para el producto.");
-            return null;
-        }
-        ProductoDto productoDto = new ProductoDto(
-                idProducto,
+        return new ProductoDto(
+                (productoSeleccionado != null) ? productoSeleccionado.productoId() : crearIdProducto(),
                 txtNombre.getText(),
                 txtDescripcion.getText(),
-                imagenProducto,
-                categoria.toString(), //
-                parsePrecio(txtPrecio.getText()),
-                estado.toString()
+                (archivoImagen != null) ? new Image(archivoImagen.toURI().toString()) : null,
+                cbCategoria.getValue().toString(),
+                Double.parseDouble(txtPrecio.getText()),
+                cbEstado.getValue().toString()
         );
-        if (!validarProducto(productoDto)) {
-            return null;
-        }
-        return productoDto;
     }
 
     private void agregarProducto() {
-        ProductoDto productoDto = crearProductoDto();
-        if (productoDto == null) {
-            return;
-        }
-        if (validarProducto(productoDto)) {
+        if(validarFormularioProducto() == true) {
+            ProductoDto productoDto = crearProductoDto();
             if (productoController.crearProducto(productoDto)) {
                 listaProductos.add(productoDto);
-                principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION,
-                        "Éxito", "Producto agregado");
-                tablaProducto.getSelectionModel().clearSelection();
+                principalViewController.mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Producto agregado");
                 limpiarFormulario();
             } else {
-                principalViewController.mostrarAlerta(Alert.AlertType.ERROR,
-                        "Error", "Producto no agregado");
+                principalViewController.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Producto no agregado");
             }
         }
     }
 
     private void actualizarProducto() {
         if (productoSeleccionado != null) {
-            ProductoDto productoDto = crearProductoDto();
-            if (validarProducto(productoDto)) {
+            if (validarFormularioProducto() == true) {
+                ProductoDto productoDto = crearProductoDto();
                 if (productoController.actualizarProducto(productoDto)) {
                     listaProductos.set(listaProductos.indexOf(productoSeleccionado), productoDto);
                     tablaProducto.refresh();
@@ -213,7 +207,7 @@ public class AgregarProductoViewController {
                     principalViewController.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Producto no actualizado");
                 }
             }
-        } else {
+            } else {
             principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione un producto para actualizar.");
         }
     }
@@ -289,6 +283,7 @@ public class AgregarProductoViewController {
 
     @FXML
     void onSalir(ActionEvent event) {
+        modelFactory.cerrarSesion();
         cerrarSesion();
     }
 
@@ -307,37 +302,48 @@ public class AgregarProductoViewController {
         cbEstado.getSelectionModel().clearSelection();
     }
 
-    private boolean validarProducto(ProductoDto productoDto) {
-        if (productoDto.nombre() == null || productoDto.nombre().isEmpty()) {
+    private boolean validarFormularioProducto() {
+        if (txtNombre.getText().isBlank()) {
             principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El nombre es obligatorio.");
             return false;
         }
-        if (productoDto.descripcion() == null || productoDto.descripcion().isEmpty()) {
+        if (txtDescripcion.getText().isBlank()) {
             principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "La descripción es obligatoria.");
             return false;
         }
-        if (productoDto.categoria() == null || productoDto.categoria().isEmpty()) {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "La categoría es obligatoria.");
+        if (cbCategoria.getValue() == null) {
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione una categoría.");
             return false;
         }
-        if (productoDto.estado() == null || productoDto.estado().isEmpty()) {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El estado es obligatorio.");
+        if (cbEstado.getValue() == null) {
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione un estado.");
+            return false;
+        }
+        if (archivoImagen == null) {
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione una imagen para el producto.");
+            return false;
+        }
+        if (txtPrecio.getText().isBlank()) {
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El precio es obligatorio.");
+            return false;
+        }
+        try {
+           Double precio = Double.parseDouble(txtPrecio.getText());
+           if (precio <= 0) {
+               principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El precio no puede ser menor o igual a 0.");
+               return false;
+           }
+        } catch (NumberFormatException e) {
+            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El precio debe ser válido.");
             return false;
         }
         return true;
     }
 
-    private double parsePrecio(String precioStr) {
-        try {
-            return Double.parseDouble(precioStr);
-        } catch (NumberFormatException e) {
-            principalViewController.mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El precio debe ser válid, automáticamente se pondrá en 0.");
-            return 0;
-        }
-    }
-
     private String crearIdProducto() {
         Random random = new Random();
-        return String.valueOf(random.nextInt(10000));
+        return String.format("%04d", random.nextInt(10000));
     }
+
+
 }

@@ -6,7 +6,6 @@ import co.edu.uniquindio.marketplace.marketplace.model.Producto;
 import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import co.edu.uniquindio.marketplace.marketplace.services.IMarketplaceMapping;
 
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 

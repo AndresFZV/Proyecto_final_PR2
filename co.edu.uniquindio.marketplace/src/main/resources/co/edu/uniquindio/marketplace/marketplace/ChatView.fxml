@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="co.edu.uniquindio.marketplace.marketplace.viewcontroller.ChatController">
+    <center>
+        <VBox fx:id="chatBox" alignment="CENTER" prefHeight="800.0" prefWidth="400.0" style="-fx-padding: 15;">
+            <!-- Área de pestañas de chat -->
+            <TabPane fx:id="tabPane" prefHeight="750.0" prefWidth="380.0" style="-fx-border-color: #BDC3C7; -fx-border-width: 1; -fx-padding: 5;" />
+        </VBox>
+    </center>
+</BorderPane>

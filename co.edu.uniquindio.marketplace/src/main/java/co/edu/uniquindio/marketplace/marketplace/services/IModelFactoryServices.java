@@ -2,6 +2,7 @@ package co.edu.uniquindio.marketplace.marketplace.services;
 
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.ProductoDto;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
+import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 
 import java.util.List;
 
@@ -11,10 +12,8 @@ public interface IModelFactoryServices {
     boolean crearVendedor(VendedorDto vendedorDto);
     boolean actualizarVendedor(VendedorDto vendedorDto);
     boolean eliminarVendedor(String cedula);
-    boolean validarVendedor(String nombreUsuario, String contrasena);
-
-    List<ProductoDto> obtenerProducto();
-    boolean crearProducto(ProductoDto productoDto);
-    boolean actualizarProducto(ProductoDto productoDto);
-    boolean eliminarProducto(String productoId);
+    Vendedor validarVendedor(String nombreUsuario, String contrasena);
+    Vendedor obtenerVendedorUsuario(String nombreUsuario);
+    Vendedor validarVendedorCedula(String cedula);
+    List<Vendedor> obtenerVendedoresAsociados(String nombreUsuario);
 }

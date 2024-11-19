@@ -2,7 +2,7 @@ package co.edu.uniquindio.marketplace.marketplace.controller;
 
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.mapping.dto.VendedorDto;
-import co.edu.uniquindio.marketplace.marketplace.model.Usuario;
+import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 
 import java.util.List;
 
@@ -14,28 +14,31 @@ public class VendedorController {
         modelFactory = ModelFactory.getInstance();
     }
 
-    // Método para obtener la lista de vendedores
     public List<VendedorDto> obtenerVendedor() {
         return modelFactory.obtenerVendedor();
     }
 
-    // Método para crear un vendedor
     public boolean crearVendedor(VendedorDto vendedorDto) {
         return modelFactory.crearVendedor(vendedorDto);
     }
 
-    // Método para actualizar un vendedor
     public boolean actualizarVendedor(VendedorDto vendedorDto) {
         return modelFactory.actualizarVendedor(vendedorDto);
     }
 
-    // Método para eliminar un vendedor por cédula
     public boolean eliminarVendedor(String cedula) {
         return modelFactory.eliminarVendedor(cedula);
     }
 
-    // Método para validad a un vendedor
-    public boolean validarVendedor(String nombreUsuario, String contrasena){
+    public Vendedor validarVendedor(String nombreUsuario, String contrasena){
         return modelFactory.validarVendedor(nombreUsuario, contrasena);
+    }
+
+    public Vendedor validarVendedorCedula(String cedula){
+        return modelFactory.validarVendedorCedula(cedula);
+    }
+
+    public List<Vendedor> obtenerVendedoresAsociados(String nombreUsuario) {
+        return modelFactory.obtenerVendedoresAsociados(nombreUsuario);
     }
 }

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #FDF7E3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.marketplace.marketplace.viewcontroller.PanelAdminViewController">
+    <children>
+        <TabPane prefHeight="750.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab fx:id="tabReportes" text="Reportes">
+                    <content>
+                        <fx:include source="Reportes.fxml" />
+                    </content>
+                </Tab>
+                <Tab fx:id="tabAgregarVendedor" text="Agregar vendedor">
+                    <content>
+                    </content>
+                    <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <AnchorPane prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #FDF7E3;">
+                                    <children>
+                                        <SplitPane dividerPositions="0.4890491452991452" layoutX="7.0" layoutY="9.0" orientation="VERTICAL" prefHeight="750.0" prefWidth="1200.0">
+                                            <items>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #fff;">
+                                                    <children>
+                                                        <Label layoutX="124.0" layoutY="96.0" text="Nombre:" textFill="#21a44f">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="15.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label layoutX="641.0" layoutY="96.0" text="Apellido:" textFill="#21a44f">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="15.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label layoutX="125.0" layoutY="145.0" prefHeight="22.0" prefWidth="59.0" text="Cédula:" textFill="#21a44f">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="15.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label layoutX="125.0" layoutY="194.0" prefHeight="22.0" prefWidth="78.0" text="Dirección:" textFill="#21a44f">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="15.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label layoutX="641.0" layoutY="145.0" prefHeight="22.0" prefWidth="59.0" text="Correo:" textFill="#21a44f">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="15.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <TextField fx:id="txtNombre" layoutX="214.0" layoutY="92.0" prefHeight="26.0" prefWidth="268.0" promptText="Nombre" />
+                                                        <TextField fx:id="txtApellido" layoutX="749.0" layoutY="92.0" prefHeight="26.0" prefWidth="268.0" promptText="Apellido" />
+                                                        <TextField fx:id="txtCedula" layoutX="214.0" layoutY="141.0" prefHeight="26.0" prefWidth="268.0" promptText="Número de documento" />
+                                                        <TextField fx:id="txtCorreo" layoutX="749.0" layoutY="141.0" prefHeight="26.0" prefWidth="268.0" promptText="Correo electrónico" />
+                                                        <TextField fx:id="txtdireccion" layoutX="214.0" layoutY="190.0" prefHeight="26.0" prefWidth="268.0" promptText="Dirección" />
+                                                        <Separator layoutX="-6.0" layoutY="288.0" prefHeight="10.0" prefWidth="1207.0" />
+                                                        <Button fx:id="btnNuevo" layoutX="124.0" layoutY="310.0" mnemonicParsing="false" onAction="#onNuevoVendedor" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #21a44f; -fx-text-fill: white;" text="Nuevo">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="15.0" />
+                                                            </font>
+                                                            <cursor>
+                                                                <Cursor fx:constant="HAND" />
+                                                            </cursor>
+                                                        </Button>
+                                                        <Button fx:id="btnAgregar" layoutX="369.0" layoutY="310.0" mnemonicParsing="false" onAction="#onAgregarVendedor" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #21a44f; -fx-text-fill: white;" text="Agregar">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="15.0" />
+                                                            </font>
+                                                            <cursor>
+                                                                <Cursor fx:constant="HAND" />
+                                                            </cursor>
+                                                        </Button>
+                                                        <Button fx:id="btnActualizar" layoutX="641.0" layoutY="310.0" mnemonicParsing="false" onAction="#onActualizarVendedor" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #21a44f; -fx-text-fill: white;" text="Actualizar">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="15.0" />
+                                                            </font>
+                                                            <cursor>
+                                                                <Cursor fx:constant="HAND" />
+                                                            </cursor>
+                                                        </Button>
+                                                        <Button fx:id="btnEliminar" layoutX="946.0" layoutY="310.0" mnemonicParsing="false" onAction="#onEliminarVendedor" prefHeight="31.0" prefWidth="131.0" style="-fx-background-color: #21a44f; -fx-text-fill: white;" text="Eliminar">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="15.0" />
+                                                            </font>
+                                                            <cursor>
+                                                                <Cursor fx:constant="HAND" />
+                                                            </cursor>
+                                                        </Button>
+                                                        <Label layoutX="641.0" layoutY="194.0" prefHeight="22.0" prefWidth="78.0" text="Teléfono:" textFill="#21a44f">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="15.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <TextField fx:id="txtTelefono" layoutX="749.0" layoutY="190.0" prefHeight="26.0" prefWidth="268.0" promptText="Número de teléfono" />
+                                                        <Label layoutX="125.0" layoutY="248.0" prefHeight="17.0" prefWidth="59.0" text="Usuario:" textFill="#21a44f">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="15.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <TextField fx:id="txtUsuario" layoutX="214.0" layoutY="244.0" prefHeight="26.0" prefWidth="268.0" promptText="Usuario" />
+                                                        <Label layoutX="641.0" layoutY="248.0" prefHeight="22.0" prefWidth="90.0" text="Contraseña:" textFill="#21a44f">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="15.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <PasswordField fx:id="pwfContrasena" layoutX="749.0" layoutY="244.0" prefHeight="26.0" prefWidth="268.0" promptText="**********" />
+                                                        <Separator layoutX="-6.0" layoutY="62.0" prefHeight="10.0" prefWidth="1207.0" />
+                                                        <Label layoutX="520.0" layoutY="20.0" text="Registrar vendedor" textFill="#21a44f">
+                                                            <font>
+                                                                <Font name="System Bold Italic" size="21.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Button fx:id="btnSalir" contentDisplay="GRAPHIC_ONLY" layoutX="1114.0" layoutY="13.0" mnemonicParsing="false" onAction="#onSalir" prefHeight="46.0" prefWidth="20.0" style="-fx-background-color: #fff;" text="Button">
+                                                            <graphic>
+                                                                <ImageView fitHeight="35.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                                                    <image>
+                                                                        <Image url="@../../../../../img/proyecto/iconoSalida.png" />
+                                                                    </image>
+                                                                </ImageView>
+                                                            </graphic>
+                                                            <cursor>
+                                                                <Cursor fx:constant="HAND" />
+                                                            </cursor>
+                                                        </Button>
+                                                    </children>
+                                                </AnchorPane>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="270.0" prefWidth="870.0">
+                                                    <children>
+                                                        <TableView fx:id="tablaVendedor" layoutX="-2.0" layoutY="-3.0" prefHeight="388.0" prefWidth="1207.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="tcNombre" prefWidth="112.0" text="Nombre" />
+                                                                <TableColumn fx:id="tcApellido" prefWidth="124.80001831054688" text="Apellido" />
+                                                                <TableColumn fx:id="tcCedula" prefWidth="139.20004272460938" text="Cédula" />
+                                                                <TableColumn fx:id="tcDireccion" prefWidth="120.79998779296875" text="Dirección" />
+                                                                <TableColumn fx:id="tcCorreo" prefWidth="164.79998779296875" text="Correo" />
+                                                                <TableColumn fx:id="tcTelefono" prefWidth="144.79998779296875" text="Teléfono" />
+                                                                <TableColumn fx:id="tcUsuario" prefWidth="179.2000732421875" text="Usuario" />
+                                                                <TableColumn fx:id="tcContrasena" prefWidth="223.199951171875" text="Contraseña" />
+                                                            </columns>
+                                                        </TableView>
+                                                    </children>
+                                                </AnchorPane>
+                                            </items>
+                                        </SplitPane>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>

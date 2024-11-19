@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #FDF7E3;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.marketplace.marketplace.viewcontroller.ReportesViewController">
+    <children>
+        <Separator layoutX="238.0" layoutY="3.0" orientation="VERTICAL" prefHeight="770.0" prefWidth="27.0" />
+        <VBox layoutX="23.0" layoutY="144.0" prefHeight="200.0" prefWidth="210.0" spacing="10.0">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: #21a44f; -fx-text-fill: white;" text="Mensajes entre dos vendedores" />
+                <Button fx:id="btnReporteGeneral" mnemonicParsing="false" onAction="#onGenerarReporte" prefHeight="40.0" prefWidth="238.0" style="-fx-background-color: #21a44f; -fx-text-fill: white;" text="Reporte general" />
+                <Button fx:id="btnProductosLikes" mnemonicParsing="false" onAction="#onMostrarGraficaLikes" prefHeight="40.0" prefWidth="238.0" style="-fx-background-color: #21a44f; -fx-text-fill: white;" text="Productos con más me gusta" />
+                <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#onCerrarSesion" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: #21a44f; -fx-text-fill: white;" text="Cerrar sesión" />
+            </children>
+        </VBox>
+        <Label layoutX="28.0" layoutY="19.0" text="¡Bienvenido" textFill="#21a44f">
+            <font>
+                <Font name="System Bold Italic" size="22.0" />
+            </font>
+        </Label>
+        <Label layoutX="130.0" layoutY="35.0" prefHeight="32.0" prefWidth="88.0" text="admin!" textFill="#21a44f">
+            <font>
+                <Font name="System Bold Italic" size="22.0" />
+            </font>
+        </Label>
+        <Label layoutX="84.0" layoutY="97.0" text="Reportes" textFill="#21a44f">
+            <font>
+                <Font name="System Bold Italic" size="22.0" />
+            </font>
+        </Label>
+        <Separator layoutY="66.0" prefHeight="18.0" prefWidth="1200.0" />
+        <TextField layoutX="525.0" layoutY="363.0" />
+        <Label layoutX="292.0" layoutY="134.0" text="Ingrese el usuario del vendedor:" textFill="#21a44f">
+            <font>
+                <Font name="System Bold Italic" size="15.0" />
+            </font>
+        </Label>
+        <Label layoutX="524.0" layoutY="23.0" prefHeight="39.0" prefWidth="382.0" style="-fx-text-fill: #21a44f;" text="Estadísticas MarketQuindío">
+            <font>
+                <Font name="System Bold Italic" size="27.0" />
+            </font>
+        </Label>
+        <ListView fx:id="listViewContactos" layoutX="292.0" layoutY="199.0" prefHeight="235.0" prefWidth="382.0" />
+        <Separator layoutX="709.0" layoutY="73.0" orientation="VERTICAL" prefHeight="378.0" prefWidth="12.0" />
+        <Separator layoutX="252.0" layoutY="442.0" prefHeight="18.0" prefWidth="946.0" />
+        <Label layoutX="737.0" layoutY="134.0" text="Seleccione una fecha para buscar:" textFill="#21a44f">
+            <font>
+                <Font name="System Bold Italic" size="15.0" />
+            </font>
+        </Label>
+        <DatePicker fx:id="dtpFecha" layoutX="986.0" layoutY="132.0" prefHeight="3.0" prefWidth="170.0" />
+        <ListView fx:id="listViewProductosFecha" layoutX="737.0" layoutY="200.0" prefHeight="235.0" prefWidth="420.0" />
+        <TextField fx:id="txtVerContactos" layoutX="524.0" layoutY="131.0" prefHeight="26.0" prefWidth="150.0" />
+        <SplitPane dividerPositions="0.3132022471910113" layoutX="264.0" layoutY="460.0" orientation="VERTICAL" prefHeight="286.0" prefWidth="914.0" style="-fx-background-color: white;">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="913.0" style="-fx-background-color: #FDF7E3;">
+                    <children>
+                        <Label layoutX="14.0" layoutY="55.0" text="Ingrese el usuario del vendedor:" textFill="#21a44f">
+                            <font>
+                                <Font name="System Bold Italic" size="15.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="txtProductos" layoutX="259.0" layoutY="53.0" />
+                        <HBox layoutX="433.0" layoutY="46.0" prefHeight="40.0" prefWidth="238.0" spacing="10.0">
+                            <children>
+                                <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#onBuscar" prefHeight="32.0" prefWidth="107.0" style="-fx-background-color: #21a44f; -fx-text-fill: white;" text="Buscar" />
+                                <Button fx:id="btnRefrescarTabla" mnemonicParsing="false" onAction="#onLimpiarTabla" prefHeight="32.0" prefWidth="107.0" style="-fx-background-color: #21a44f; -fx-text-fill: white;" text="Refrescar tabla" />
+                            </children>
+                        </HBox>
+                        <Label layoutX="350.0" layoutY="3.0" text="Buscar producto por vendedor" textFill="#21a44f">
+                            <font>
+                                <Font name="System Bold Italic" size="15.0" />
+                            </font>
+                        </Label>
+                        <Separator layoutX="25.0" layoutY="32.0" prefHeight="0.0" prefWidth="862.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <children>
+                        <TableView fx:id="tablaProductos" prefHeight="200.0" prefWidth="913.0">
+                            <columns>
+                                <TableColumn fx:id="tcID" prefWidth="75.0" text="ID" />
+                                <TableColumn fx:id="tcNombre" prefWidth="192.7999725341797" text="Nombre" />
+                                <TableColumn fx:id="tcDescripcion" prefWidth="172.79998779296875" text="Descripcion" />
+                                <TableColumn fx:id="tcCategoria" prefWidth="139.20001220703125" text="Categoria" />
+                                <TableColumn fx:id="tcEstado" prefWidth="159.20001220703125" text="Estado" />
+                                <TableColumn fx:id="tcPrecio" prefWidth="175.199951171875" text="Precio" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+        <Button fx:id="btnBuscarContactos" layoutX="292.0" layoutY="166.0" mnemonicParsing="false" onAction="#onBuscarContactos" prefHeight="3.0" prefWidth="88.0" style="-fx-background-color: #21a44f; -fx-text-fill: white;" text="Buscar" />
+        <Button fx:id="btnBuscarFecha" layoutX="737.0" layoutY="166.0" mnemonicParsing="false" onAction="#onBuscarFecha" prefHeight="3.0" prefWidth="88.0" style="-fx-background-color: #21a44f; -fx-text-fill: white;" text="Buscar" />
+        <Label layoutX="292.0" layoutY="88.0" text="Buscar vendedores asociados a un vendedor" textFill="#21a44f">
+            <font>
+                <Font name="System Bold Italic" size="15.0" />
+            </font>
+        </Label>
+        <Label layoutX="735.0" layoutY="88.0" text="Buscar productos por fecha" textFill="#21a44f">
+            <font>
+                <Font name="System Bold Italic" size="15.0" />
+            </font>
+        </Label>
+        <Separator layoutX="247.0" layoutY="113.0" prefHeight="11.0" prefWidth="946.0" />
+        <Pane layoutY="389.0" prefHeight="270.0" prefWidth="245.0" style="-fx-background-color: #FDF7E3;">
+            <children>
+                <ImageView fitHeight="196.0" fitWidth="250.0" layoutX="-2.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../../img/proyecto/carritoDosIcono-removebg-preview.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+        <Separator layoutY="360.0" prefHeight="3.0" prefWidth="246.0" />
+    </children>
+</AnchorPane>

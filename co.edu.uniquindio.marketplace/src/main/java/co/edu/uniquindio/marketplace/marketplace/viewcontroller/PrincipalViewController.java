@@ -1,5 +1,6 @@
 package co.edu.uniquindio.marketplace.marketplace.viewcontroller;
 
+import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -7,15 +8,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
 import java.util.Optional;
 
 public class PrincipalViewController {
-
-
-
-    private void initialize(){
-    }
 
     public void mostrarAlerta(Alert.AlertType tipo, String title, String content) {
         Alert alert = new Alert(tipo);
@@ -35,23 +30,43 @@ public class PrincipalViewController {
         alert.getButtonTypes().setAll(botonSi, botonNo);
         Optional<ButtonType> resultado = alert.showAndWait();
         return resultado.isPresent() && resultado.get() == botonSi;
-        }
+    }
 
-        public void navegarDatos(String nombreArchivoFxml) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(nombreArchivoFxml));
-                Parent root = loader.load();
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.setTitle("MARKETQUINDÍO");
-                stage.setResizable(false);
-                Image icono = new Image(getClass().getResourceAsStream("/img/proyecto/carritoIcono.png"));
-                stage.getIcons().add(icono);
-                stage.setScene(scene);
-                stage.show();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+    public void navegarDatos(String nombreArchivoFxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(nombreArchivoFxml));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("MARKETQUINDÍO");
+            stage.setResizable(false);
+            Image icono = new Image(getClass().getResourceAsStream("/img/proyecto/carritoIcono.png"));
+            stage.getIcons().add(icono);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    public void ingresarSesion(String nombreArchivoFxml, boolean esAdmin, String nombreUsuario) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(nombreArchivoFxml));
+            Parent root = loader.load();
+            PanelControlViewController panelController = loader.getController();
+            panelController.configurarVista(esAdmin, nombreUsuario);
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("MARKETQUINDÍO");
+            stage.setResizable(false);
+            Image icono = new Image(getClass().getResourceAsStream("/img/proyecto/carritoIcono.png"));
+            stage.getIcons().add(icono);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
-
