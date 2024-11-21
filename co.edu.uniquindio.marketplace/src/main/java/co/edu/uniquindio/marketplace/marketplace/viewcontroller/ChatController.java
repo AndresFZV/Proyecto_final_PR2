@@ -1,6 +1,6 @@
 package co.edu.uniquindio.marketplace.marketplace.viewcontroller;
 
-import co.edu.uniquindio.marketplace.marketplace.model.Moderator;
+import co.edu.uniquindio.marketplace.marketplace.services.Moderator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;

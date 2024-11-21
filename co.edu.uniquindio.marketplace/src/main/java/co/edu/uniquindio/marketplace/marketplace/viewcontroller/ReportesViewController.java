@@ -130,7 +130,7 @@ public class ReportesViewController {
 
     private void generarReportes() {
         try {
-            reporteController.generarReporte(); // Generamos el reporte
+            reporteController.generarReporte();
         } catch (Exception e) {
             principalViewController.mostrarAlerta(Alert.AlertType.ERROR,
                     "Error al generar reporte", "Hubo un problema al generar el reporte: " + e.getMessage());

@@ -1,4 +1,4 @@
-package co.edu.uniquindio.marketplace.marketplace.model;
+package co.edu.uniquindio.marketplace.marketplace.services;
 
 import java.util.Map;
 import co.edu.uniquindio.marketplace.marketplace.viewcontroller.ChatTabController;

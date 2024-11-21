@@ -10,11 +10,10 @@ public abstract class Persona {
     private String correo;
     private Usuario usuario;
 
-    // Constructor vacío
     public Persona(){
 
     }
-    // Constructor con todos sus atributos
+
     public Persona(String nombre, String apellido, String cedula, String direccion,
                    String telefono, String correo, Usuario usuario) {
         this.nombre = nombre;
@@ -26,7 +25,6 @@ public abstract class Persona {
         this.usuario = usuario;
     }
 
-    // Getters y Settes
     public String getNombre() {
         return nombre;
     }
@@ -69,7 +67,7 @@ public abstract class Persona {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    // Método toString
+
     @Override
     public String toString() {
         return "Persona{" +

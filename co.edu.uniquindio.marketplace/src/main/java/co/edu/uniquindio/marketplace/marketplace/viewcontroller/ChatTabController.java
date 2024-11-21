@@ -1,6 +1,6 @@
 package co.edu.uniquindio.marketplace.marketplace.viewcontroller;
 
-import co.edu.uniquindio.marketplace.marketplace.model.Moderator;
+import co.edu.uniquindio.marketplace.marketplace.services.Moderator;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;

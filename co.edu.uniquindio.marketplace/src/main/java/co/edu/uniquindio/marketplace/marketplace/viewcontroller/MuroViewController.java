@@ -3,10 +3,14 @@ package co.edu.uniquindio.marketplace.marketplace.viewcontroller;
 import co.edu.uniquindio.marketplace.marketplace.factory.ModelFactory;
 import co.edu.uniquindio.marketplace.marketplace.model.Marketplace;
 import co.edu.uniquindio.marketplace.marketplace.model.Producto;
+import co.edu.uniquindio.marketplace.marketplace.model.SolicitudAmistad;
 import co.edu.uniquindio.marketplace.marketplace.model.Vendedor;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -20,8 +24,19 @@ import java.util.List;
 
 public class MuroViewController {
 
+    private Vendedor vendedorActual;
     @FXML
     private GridPane gridPaneProductos;
+
+    @FXML
+    private ListView<Vendedor> listaVendedores;
+
+    @FXML
+    private TextField buscarVendedorField;
+
+    @FXML
+    private ListView<SolicitudAmistad> solicitudesPendientesListView;
+
 
     private Marketplace marketplace;
     private ModelFactory modelFactory;
@@ -31,7 +46,23 @@ public class MuroViewController {
         modelFactory = ModelFactory.getInstance();
         marketplace = modelFactory.getMarketplace();
         cargarProductosEnMuro();
+        vendedorActual = obtenerVendedorActual();
+        cargarVendedores();
     }
+
+
+    private Vendedor obtenerVendedorActual() {
+
+        return new Vendedor("Juan", "Pérez", "123", "Calle 123", "1234567890", "juan@mail.com", null);
+    }
+
+
+    private void cargarVendedores() {
+        List<Vendedor> vendedores = marketplace.getListaVendedores();
+        listaVendedores.getItems().clear();
+        listaVendedores.getItems().addAll(vendedores);
+    }
+
     public void setVendedor(Vendedor vendedor) {
         this.vendedor = vendedor;
         cargarProductosEnMuro();
@@ -84,6 +115,107 @@ public class MuroViewController {
         }
     }
 
+
+    @FXML
+    private void enviarSolicitudAmistad() {
+        Vendedor seleccionado = listaVendedores.getSelectionModel().getSelectedItem();
+
+        if (seleccionado != null) {
+
+            vendedorActual.enviarSolicitud(seleccionado);
+
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Solicitud de amistad");
+            alert.setContentText("Solicitud enviada a " + seleccionado.getNombre());
+            alert.showAndWait();
+
+
+            actualizarSolicitudesPendientes();
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setContentText("Por favor, selecciona un vendedor.");
+            alert.showAndWait();
+        }
+    }
+
+    private void actualizarSolicitudesPendientes() {
+
+        solicitudesPendientesListView.getItems().clear();
+
+        List<SolicitudAmistad> solicitudesPendientes = vendedorActual.obtenerSolicitudesPendientes();
+
+
+        solicitudesPendientesListView.getItems().addAll(solicitudesPendientes);
+    }
+
+
+
+    @FXML
+    private void aceptarSolicitudAmistad() {
+        Vendedor seleccionado = listaVendedores.getSelectionModel().getSelectedItem();
+
+        if (seleccionado != null) {
+
+            if (vendedorActual.tieneSolicitudPendiente(seleccionado)) {
+
+                vendedorActual.aceptarSolicitud(seleccionado);
+
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Solicitud de amistad aceptada");
+                alert.setContentText("Solicitud aceptada de " + seleccionado.getNombre());
+                alert.showAndWait();
+            } else {
+
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No hay solicitud pendiente");
+                alert.setContentText("No hay una solicitud pendiente de amistad de " + seleccionado.getNombre());
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setContentText("Por favor, selecciona un vendedor.");
+            alert.showAndWait();
+        }
+    }
+
+
+    @FXML
+    private void rechazarSolicitudAmistad() {
+        Vendedor seleccionado = listaVendedores.getSelectionModel().getSelectedItem();
+
+        if (seleccionado != null) {
+
+            if (vendedorActual.tieneSolicitudPendiente(seleccionado)) {
+
+                vendedorActual.rechazarSolicitud(seleccionado);
+
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Solicitud de amistad rechazada");
+                alert.setContentText("Solicitud rechazada de " + seleccionado.getNombre());
+                alert.showAndWait();
+            } else {
+
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No hay solicitud pendiente");
+                alert.setContentText("No hay una solicitud pendiente de amistad de " + seleccionado.getNombre());
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setContentText("Por favor, selecciona un vendedor.");
+            alert.showAndWait();
+        }
+    }
+
+
+
     private void mostrarDetallesProducto(Producto producto) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/marketplace/marketplace/productoDetails.fxml"));
@@ -96,5 +228,19 @@ public class MuroViewController {
             e.printStackTrace();
         }
     }
-}
 
+    @FXML
+    private void buscarVendedores() {
+        String textoBusqueda = buscarVendedorField.getText().toLowerCase().trim();
+        if (!textoBusqueda.isEmpty()) {
+            listaVendedores.getItems().clear();
+            for (Vendedor vendedor : marketplace.getListaVendedores()) {
+                if (vendedor.getNombre().toLowerCase().contains(textoBusqueda)) {
+                    listaVendedores.getItems().add(vendedor);
+                }
+            }
+        } else {
+            cargarVendedores();
+        }
+    }
+}
